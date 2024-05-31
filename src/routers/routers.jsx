@@ -5,6 +5,8 @@ import Properties from "../pages/Properties";
 import UserDashboard from "../pages/UserDashboard";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
+import PropertyDetails from "../pages/PropertyDetails";
+import { axiosPublic } from "../hooks/useAxiosPublic";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,11 @@ const router = createBrowserRouter([
       {
         path: "/properties",
         element: <Properties />,
+      },
+      {
+        path: "/propertydetails/:id",
+        loader: ({ params }) => axiosPublic(`/properties/${params.id}`),
+        element: <PropertyDetails />,
       },
       {
         path: "/dashboard",

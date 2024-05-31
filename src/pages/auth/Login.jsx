@@ -1,7 +1,13 @@
+import PageBanner from "../../components/PageBanner";
+import bannerbg from "../../assets/justbanner.png";
 const Login = () => {
   return (
     <div>
-      <h3>User login</h3>
+      <PageBanner
+        bannerBg={bannerbg}
+        headline={"Login"}
+        text="Login if your are registered"
+      ></PageBanner>
     </div>
   );
 };
