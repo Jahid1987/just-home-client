@@ -1,10 +1,11 @@
-import BannerContent from "../components/home/BannerContent";
+import Advertisement from "../components/home/Advertisement";
+import HomeBanner from "../components/home/HomeBanner";
 
 const Home = () => {
   return (
     <div>
-      <BannerContent />
-      <p>lorem10000</p>
+      <HomeBanner />
+      <Advertisement />
     </div>
   );
 };

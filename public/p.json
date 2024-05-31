@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Modern Apartment in City Center",
+    "details": "A modern two-bedroom apartment located in the heart of the city.",
+    "price_range": [290000, 310000],
+    "location": "City Center",
+    "image": "img1.jpg",
+    "agentId": "agent1",
+    "verification_status": "verified"
+  },
+  {
+    "title": "Cozy Cottage in the Countryside",
+    "details": "A cozy three-bedroom cottage with a large garden.",
+    "price_range": [240000, 260000],
+    "location": "Countryside",
+    "image": "img3.jpg",
+    "agentId": "agent1",
+    "verification_status": "unverified"
+  },
+  {
+    "title": "Luxury Villa with Pool",
+    "details": "A luxurious villa featuring a private pool and stunning views.",
+    "price_range": [950000, 1050000],
+    "location": "Hillside",
+    "image": "img5.jpg",
+    "agentId": "agent1",
+    "verification_status": "verified"
+  }
+]
