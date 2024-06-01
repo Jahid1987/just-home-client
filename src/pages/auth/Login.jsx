@@ -1,5 +1,5 @@
 import PageBanner from "../../components/PageBanner";
-import bannerbg from "../../assets/justbanner.png";
+import bannerbg from "../../assets/auth.png";
 const Login = () => {
   return (
     <div>

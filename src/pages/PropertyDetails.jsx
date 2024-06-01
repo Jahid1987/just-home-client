@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import bannerBg from "../assets/justbanner.png";
+import bannerBg from "../assets/detailsbanner.png";
 import PageBanner from "../components/PageBanner";
 
 const PropertyDetails = () => {
