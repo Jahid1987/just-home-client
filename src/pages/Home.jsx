@@ -1,8 +1,10 @@
 import Advertisement from "../components/home/Advertisement";
 import BestProperties from "../components/home/BestProperties";
+import Footer from "../components/home/Footer";
 import HomeBanner from "../components/home/HomeBanner";
 import LocalExpertise from "../components/home/LocalExpertise";
 import PropertiesInCities from "../components/home/PropertiesInCities";
+import Register from "../components/home/Register";
 import Reviews from "../components/home/Reviews";
 import WhyChoose from "../components/home/WhyChoose";
 
@@ -50,11 +52,21 @@ const Home = () => {
       <div
         style={{
           borderRadius: "24px",
-          background: "#F9F9F9",
+          background: "#FFF8F6",
         }}
-        className="py-5 my-2"
+        className="py-1 my-2"
       >
-        <LocalExpertise />
+        <Register />
+      </div>
+      {/* footer section  */}
+      <div
+        style={{
+          borderRadius: "24px",
+          background: "#1A1A1A",
+        }}
+        className="py-1 my-2 text-white"
+      >
+        <Footer />
       </div>
     </div>
   );

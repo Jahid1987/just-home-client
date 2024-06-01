@@ -1,4 +1,4 @@
-const PrimaButton = ({ name }) => {
+const PrimaryButton = ({ name }) => {
   return (
     <button className="btn btn-sm md:btn-md  btn-outline btn-neutral text-white font-light">
       {name}
@@ -6,4 +6,4 @@ const PrimaButton = ({ name }) => {
   );
 };
 
-export default PrimaButton;
+export default PrimaryButton;

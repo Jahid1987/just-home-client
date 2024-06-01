@@ -9,7 +9,7 @@ const Advertisement = () => {
   const { data: properties = [], isLoading } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axiosPublic.get("/properties");
+      const { data } = await axiosPublic.get("/properties?limit=6");
       console.log(data);
       return data;
     },
@@ -20,7 +20,7 @@ const Advertisement = () => {
       sectiontext="Based on your view history"
     >
       {/* all advertised properties  */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 lg:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-5 lg:gap-8">
         {isLoading ? (
           <p>Loading ...</p>
         ) : (

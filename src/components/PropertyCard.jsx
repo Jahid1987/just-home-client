@@ -8,21 +8,10 @@ const PropertyCard = ({ property }) => {
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <figure className="relative">
-        <img src={image} alt={title} />
+        <div className="h-[290px] w-full">
+          <img className="h-full w-full object-cover" src={image} alt={title} />
+        </div>
         <div className="badge badge-success gap-2 absolute top-2 right-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="inline-block w-4 h-4 stroke-current"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            ></path>
-          </svg>
           {verification_status}
         </div>
       </figure>
