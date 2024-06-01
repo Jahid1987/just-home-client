@@ -3,6 +3,7 @@ import BestProperties from "../components/home/BestProperties";
 import HomeBanner from "../components/home/HomeBanner";
 import LocalExpertise from "../components/home/LocalExpertise";
 import PropertiesInCities from "../components/home/PropertiesInCities";
+import Reviews from "../components/home/Reviews";
 import WhyChoose from "../components/home/WhyChoose";
 
 const Home = () => {
@@ -43,7 +44,7 @@ const Home = () => {
       </div>
       {/* review section  */}
       <div>
-        <h3 className="text-3xl">Reviews are here</h3>
+        <Reviews />
       </div>
       {/* article section  */}
       <div
