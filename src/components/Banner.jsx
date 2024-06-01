@@ -5,7 +5,8 @@ const Banner = ({ children, banner }) => {
     <div
       style={{
         borderRadius: "24px",
-        background: `url(${banner}) lightgray 0px -0.6px / 100% 100.14% no-repeat`,
+        background: `linear-gradient(180deg, rgba(26, 26, 26, 0.80) 0%, rgba(26, 26, 26, 0.10) 60%, rgba(0, 0, 0, 0.00) 100%), 
+        url(${banner}) lightgray 0px -0.6px / 100% 100.14% no-repeat`,
       }}
     >
       <Nav />
