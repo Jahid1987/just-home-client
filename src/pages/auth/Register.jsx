@@ -6,10 +6,13 @@ import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import PageBanner from "../../components/PageBanner";
 import bannerbg from "../../assets/auth.png";
+import useUploadImage from "../../hooks/useUploadImage";
 
 const Register = () => {
   const { registerWithEmailPass, updateUserProfile } = useAuth();
   const [isPassword, setIsPassword] = useState(true);
+  const [isCreating, setisCreating] = useState(false);
+  const uploadImage = useUploadImage();
   const {
     register,
     handleSubmit,
@@ -19,10 +22,18 @@ const Register = () => {
   // Registering user here
   async function handleRegister(data) {
     try {
-      await registerWithEmailPass(data.email, data.password);
-      await updateUserProfile(data.name, data.photo);
-      navigate("/");
-      toast.success("Registration successfull!");
+      setisCreating(true);
+      // uploading image to imagebb
+      const imageFile = { image: data.image[0] };
+      const response = await uploadImage(imageFile);
+
+      if (response.data.success) {
+        await registerWithEmailPass(data.email, data.password);
+        await updateUserProfile(data.name, response.data.data.display_url);
+        setisCreating(false);
+        navigate("/");
+        toast.success("Registration successfull!");
+      }
     } catch (error) {
       console.log(error);
       toast.error("Something is wrong. Try again.");
@@ -41,6 +52,9 @@ const Register = () => {
           <div className="form-control">
             <label className="label">
               <span className="label-text">User Name</span>
+              {errors.name && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </label>
             <input
               type="text"
@@ -48,27 +62,26 @@ const Register = () => {
               className="input input-bordered"
               {...register("name", { required: true })}
             />
-            {errors.name && (
-              <span className="text-red-500">This field is required</span>
-            )}
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Photo</span>
+              <span className="label-text">Image</span>
+              {errors.image && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </label>
             <input
-              type="text"
-              placeholder="photo"
-              className="input input-bordered"
-              {...register("photo", { required: true })}
-            />
-            {errors.photo && (
-              <span className="text-red-500">This field is required</span>
-            )}
+              className="my-2"
+              type="file"
+              {...register("image", { required: true })}
+            ></input>
           </div>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Email</span>
+              {errors.email && (
+                <span className="text-red-500">This field is required</span>
+              )}
             </label>
             <input
               type="email"
@@ -76,9 +89,6 @@ const Register = () => {
               className="input input-bordered"
               {...register("email", { required: true })}
             />
-            {errors.email && (
-              <span className="text-red-500">This field is required</span>
-            )}
           </div>
           <div className="form-control">
             <label className="label">
@@ -108,8 +118,12 @@ const Register = () => {
             )}
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-sm md:btn-md rounded-none border-none bg-[#B94545] hover:bg-[#b94545e5] text-white hover:text-black uppercase uppercas">
-              Register
+            <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
+              {isCreating ? (
+                <span className="loading loading-spinner loading-md"></span>
+              ) : (
+                "Register"
+              )}
             </button>
           </div>
           <p>

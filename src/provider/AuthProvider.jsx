@@ -64,8 +64,7 @@ const AuthProvider = ({ children }) => {
           .post("https://hj-hotel.vercel.app/jwt", loggedUser, {
             withCredentials: true,
           })
-          .then((res) => {
-            console.log(res.data);
+          .then(() => {
             setUser(currentUser);
             setIsLoading(false);
           });

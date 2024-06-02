@@ -8,7 +8,6 @@ const PropertiesInCities = () => {
     queryKey: ["cities"],
     queryFn: async () => {
       const { data } = await axiosPublic("/cities");
-      console.log(data);
       return data;
     },
   });

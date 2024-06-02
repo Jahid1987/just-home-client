@@ -7,10 +7,10 @@ import useAuth from "../../hooks/useAuth";
 import auth from "../../firebase/firebase.config";
 import PageBanner from "../../components/PageBanner";
 import bannerbg from "../../assets/auth.png";
-import SecondaryButton from "../../components/SecondaryButton";
 const Login = () => {
   const { signInUser, registerUserWithGoogle } = useAuth();
   const [isPassword, setIsPassword] = useState(true);
+  const [isCreating, setisCreating] = useState(false);
   const location = useLocation();
   const {
     register,
@@ -22,7 +22,9 @@ const Login = () => {
   // sign in registered user
   async function handleSignIn(data) {
     try {
+      setisCreating(true);
       await signInUser(data.email, data.password);
+      setisCreating(false);
       toast.success(`Welcome, ${auth.currentUser.displayName}`);
       navigate(`${location.state || "/"}`);
     } catch (error) {
@@ -88,7 +90,13 @@ const Login = () => {
             )}
           </div>
           <div className="form-control mt-6">
-            <SecondaryButton name="Login"></SecondaryButton>
+            <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
+              {isCreating ? (
+                <span className="loading loading-spinner loading-md"></span>
+              ) : (
+                "Register"
+              )}
+            </button>
           </div>
           <p>
             Have no accout?{" "}

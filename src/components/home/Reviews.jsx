@@ -8,7 +8,7 @@ const Reviews = () => {
     queryKey: ["reviews"],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/reviews");
-      console.log(data);
+
       return data;
     },
   });
