@@ -7,12 +7,15 @@ import useAuth from "../../hooks/useAuth";
 import PageBanner from "../../components/PageBanner";
 import bannerbg from "../../assets/auth.png";
 import useUploadImage from "../../hooks/useUploadImage";
+import useUser from "../../hooks/useUser";
 
 const Register = () => {
   const { registerWithEmailPass, updateUserProfile } = useAuth();
   const [isPassword, setIsPassword] = useState(true);
   const [isCreating, setisCreating] = useState(false);
   const uploadImage = useUploadImage();
+  const { createUser } = useUser();
+
   const {
     register,
     handleSubmit,
@@ -26,15 +29,17 @@ const Register = () => {
       // uploading image to imagebb
       const imageFile = { image: data.image[0] };
       const response = await uploadImage(imageFile);
-
+      const photoURL = response.data.data.display_url; // url from imagebb
       if (response.data.success) {
-        await registerWithEmailPass(data.email, data.password);
-        await updateUserProfile(data.name, response.data.data.display_url);
+        const { user } = await registerWithEmailPass(data.email, data.password);
+        await updateUserProfile(data.name, photoURL);
+        await createUser(user, photoURL);
         setisCreating(false);
         navigate("/");
         toast.success("Registration successfull!");
       }
     } catch (error) {
+      setisCreating(false);
       console.log(error);
       toast.error("Something is wrong. Try again.");
     }
@@ -118,13 +123,15 @@ const Register = () => {
             )}
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
-              {isCreating ? (
+            {isCreating ? (
+              <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
                 <span className="loading loading-spinner loading-md"></span>
-              ) : (
-                "Register"
-              )}
-            </button>
+              </button>
+            ) : (
+              <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
+                Register
+              </button>
+            )}
           </div>
           <p>
             Have accout?{" "}

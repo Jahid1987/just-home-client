@@ -36,8 +36,8 @@ const PropertyCard = ({ property }) => {
       </figure>
       <div className="card-body">
         <h2 className="card-title">{title}</h2>
-        <p className="font-bold">
-          <CiLocationOn className="inline mr-2" />
+        <p className="font-bold flex items-center">
+          <CiLocationOn className="inline mr-2 text-lg" />
           {location}
         </p>
         <p className="text-gray-500 text-lg">

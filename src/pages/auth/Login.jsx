@@ -90,13 +90,15 @@ const Login = () => {
             )}
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
-              {isCreating ? (
+            {isCreating ? (
+              <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
                 <span className="loading loading-spinner loading-md"></span>
-              ) : (
-                "Register"
-              )}
-            </button>
+              </button>
+            ) : (
+              <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
+                Register
+              </button>
+            )}
           </div>
           <p>
             Have no accout?{" "}

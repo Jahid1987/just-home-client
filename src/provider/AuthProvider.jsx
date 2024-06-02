@@ -85,6 +85,7 @@ const AuthProvider = ({ children }) => {
   // console.log(user);
   const authInfo = {
     user,
+    setUser,
     isLoading,
     signInUser,
     registerWithEmailPass,

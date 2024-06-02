@@ -1,6 +1,9 @@
-const SecondaryButton = ({ name }) => {
+const SecondaryButton = ({ name, onClick }) => {
   return (
-    <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
+    <button
+      onClick={onClick}
+      className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light"
+    >
       {name}
     </button>
   );

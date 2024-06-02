@@ -4,9 +4,18 @@ import PageBanner from "../components/PageBanner";
 import { FaBed, FaBath, FaRulerCombined } from "react-icons/fa";
 import Section from "../components/Section";
 import Review from "../components/propertyDetails/Review";
+import SecondaryButton from "../components/SecondaryButton";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import CreateReview from "../components/propertyDetails/CreateReview";
 
 const PropertyDetails = () => {
   const { data: property } = useLoaderData();
+  const { user } = useAuth();
+  const [propertyReview, setpropertyReview] = useState({});
+  const axiosSecure = useAxiosSecure();
   const {
     title,
     location,
@@ -15,7 +24,35 @@ const PropertyDetails = () => {
     price_range,
     reviews,
     verification_status,
+    agent_name,
+    agent_image,
+    _id,
   } = property;
+  // adding to wishlist
+  async function handleWishList() {
+    try {
+      const wishlist = {
+        user_id: user.uid,
+        property_id: _id,
+        title,
+        image,
+        location,
+        agent_name,
+        agent_image,
+        verification_status,
+        price_range,
+      };
+      await axiosSecure.post("/wishlists", wishlist);
+      toast.success(`${title} added to your wishlist.`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  // show review modal
+  function handleReview() {
+    setpropertyReview(property);
+    document.getElementById("review-modal").showModal();
+  }
   return (
     <div>
       <PageBanner
@@ -35,11 +72,13 @@ const PropertyDetails = () => {
           </div>
           <div className="p-6 md:w-1/2">
             <div className="flex items-center justify-between">
-              <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs uppercase font-semibold">
-                {verification_status}
-              </span>
+              {verification_status && (
+                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs uppercase font-semibold">
+                  {verification_status}
+                </span>
+              )}
               <span className="bg-yellow-400 text-white px-3 py-1 rounded-full text-xs uppercase font-semibold">
-                Featured
+                Agent Name: {agent_name}
               </span>
             </div>
             <h1 className="text-3xl font-bold mt-4">{title}</h1>
@@ -55,12 +94,16 @@ const PropertyDetails = () => {
               <FaRulerCombined className="text-gray-600 w-5 h-5 mr-2" />
               <span>350 sqft</span>
             </div>
-            <p className="text-2xl font-bold text-red-600 mt-4">
-              ${price_range}
+            <p className="text-2xl font-bold text-red-600 my-4">
+              ${price_range[0]} - ${price_range[1]}
             </p>
-            <button className="bg-yellow-500 text-white px-4 py-2 rounded-full mt-4 hover:bg-yellow-600 transition duration-200">
-              Learn More
-            </button>
+            <div className="grid grid-cols-2 gap-2">
+              <SecondaryButton
+                onClick={handleWishList}
+                name="Add to wishlist"
+              />
+              <SecondaryButton onClick={handleReview} name="Add a review" />
+            </div>
           </div>
         </div>
       </Section>
@@ -73,6 +116,12 @@ const PropertyDetails = () => {
           ))}
         </div>
       </Section>
+      {/* Review add modal  */}
+      <dialog id="review-modal" className="modal">
+        <div className="modal-box h-full md:h-1/2 rounded-lg flex flex-col justify-center items-center">
+          <CreateReview propertyReview={propertyReview} />
+        </div>
+      </dialog>
     </div>
   );
 };
