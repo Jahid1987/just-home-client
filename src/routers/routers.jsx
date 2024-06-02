@@ -7,6 +7,7 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import PropertyDetails from "../pages/PropertyDetails";
 import { axiosPublic } from "../hooks/useAxiosPublic";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,12 +29,20 @@ const router = createBrowserRouter([
       },
       {
         path: "/properties",
-        element: <Properties />,
+        element: (
+          <PrivateRoute>
+            <Properties />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/propertydetails/:id",
         loader: ({ params }) => axiosPublic(`/properties/${params.id}`),
-        element: <PropertyDetails />,
+        element: (
+          <PrivateRoute>
+            <PropertyDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard",
