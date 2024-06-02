@@ -7,7 +7,7 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import PropertyDetails from "../pages/PropertyDetails";
 import { axiosPublic } from "../hooks/useAxiosPublic";
-import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./PrivateRouter";
 
 const router = createBrowserRouter([
   {

@@ -7,6 +7,7 @@ import useAuth from "../../hooks/useAuth";
 import auth from "../../firebase/firebase.config";
 import PageBanner from "../../components/PageBanner";
 import bannerbg from "../../assets/auth.png";
+import SecondaryButton from "../../components/SecondaryButton";
 const Login = () => {
   const { signInUser, registerUserWithGoogle } = useAuth();
   const [isPassword, setIsPassword] = useState(true);
@@ -47,7 +48,7 @@ const Login = () => {
         headline={"Login"}
         text="Login if your are registered"
       ></PageBanner>
-      <div className="card mx-auto mb-5 shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div className="card mx-auto mb-5 shrink-0 w-full max-w-sm shadow-2xl bg-base-100 my-5 max-lg:my-8 lg:my-10">
         <form onSubmit={handleSubmit(handleSignIn)} className="card-body -mb-4">
           <div className="form-control">
             <label className="label">
@@ -87,9 +88,7 @@ const Login = () => {
             )}
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-sm md:btn-md rounded-none border-none bg-[#B94545] hover:bg-[#b94545e5] text-white hover:text-black uppercase uppercas">
-              Login
-            </button>
+            <SecondaryButton name="Login"></SecondaryButton>
           </div>
           <p>
             Have no accout?{" "}

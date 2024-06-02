@@ -1,8 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import PrimaryButton from "./PrimaryButton";
+import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Nav = () => {
+  const { user, logOutUser } = useAuth();
+  // user logout
+  async function handleLogOut() {
+    await logOutUser();
+    toast.success("Logout successfully");
+  }
   const navlinks = (
     <>
       <li>
@@ -50,9 +58,15 @@ const Nav = () => {
         <ul className="menu menu-horizontal px-1">{navlinks}</ul>
       </div>
       <div className="navbar-end">
-        <Link to="/login">
-          <PrimaryButton name="Login" />
-        </Link>
+        {user ? (
+          <span onClick={handleLogOut}>
+            <PrimaryButton name="Log Out" />
+          </span>
+        ) : (
+          <Link to="/login">
+            <PrimaryButton name="Login" />
+          </Link>
+        )}
       </div>
     </div>
   );

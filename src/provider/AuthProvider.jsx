@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, facebookProvider);
   }
   // sign out user from firebase
-  function signOutUser() {
+  function logOutUser() {
     return signOut(auth);
   }
   // user  observer
@@ -92,7 +92,7 @@ const AuthProvider = ({ children }) => {
     updateUserProfile,
     registerUserWithGoogle,
     signInWithFacebook,
-    signOutUser,
+    logOutUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
