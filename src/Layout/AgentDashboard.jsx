@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 
-const UserDashboard = () => {
+const AgentDashboard = () => {
   const [isSidebar, setIsSidebar] = useState(true);
   function toggleSidebar() {
     setIsSidebar(!isSidebar);
@@ -16,25 +16,31 @@ const UserDashboard = () => {
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
         <FaUser />
-        User Profile
+        Agent Profile
       </NavLink>
       <NavLink
-        to="wishlist"
+        to="addproperty"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
-        Wishlists
+        Add Property
       </NavLink>
       <NavLink
-        to="orders"
+        to="addedproperties"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
-        Orders
+        My Added Properties
       </NavLink>
       <NavLink
-        to="reviews"
+        to="soldproperties"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
-        Reviews
+        My sold properties
+      </NavLink>
+      <NavLink
+        to="requestedproperties"
+        className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
+      >
+        Requested properties
       </NavLink>
     </>
   );
@@ -111,4 +117,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default AgentDashboard;

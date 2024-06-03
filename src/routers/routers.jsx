@@ -11,33 +11,39 @@ import UserDashboard from "../Layout/UserDashboard";
 import UserProfile from "../pages/userDashboard/UserProfile";
 import Wishlist from "../pages/userDashboard/Wishlist";
 import Orders from "../pages/userDashboard/Orders";
-import Reiviews from "../pages/userDashboard/Reiviews";
+import Reviews from "../pages/userDashboard/Reviews";
 import AdminDashboard from "../Layout/AdminDashboard";
 import ManageProperties from "../pages/adminDashboard/ManageProperties";
 import ManageUsers from "../pages/adminDashboard/ManageUsers";
 import ManageReviews from "../pages/adminDashboard/ManageReviews";
 import AdminProfile from "../pages/adminDashboard/AdminProfile";
+import AgentProfile from "../pages/agentDashboard/AgentProfile";
+import AgentDashboard from "../Layout/AgentDashboard";
+import AddProperty from "../pages/agentDashboard/AddProperty";
+import AddedProperties from "../pages/agentDashboard/AddedProperties";
+import SoldProperties from "../pages/agentDashboard/SoldProperties";
+import RequestedProperties from "../pages/agentDashboard/RequestedProperties";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root></Root>,
-    errorElement: <h3>page not found</h3>,
+    element: <Root />,
+    errorElement: <h3>Page not found</h3>,
     children: [
       {
         path: "/",
         element: <Home />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <Login />,
       },
       {
-        path: "/register",
+        path: "register",
         element: <Register />,
       },
       {
-        path: "/properties",
+        path: "properties",
         element: (
           <PrivateRoute>
             <Properties />
@@ -45,7 +51,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/propertydetails/:id",
+        path: "propertydetails/:id",
         loader: ({ params }) => axiosPublic(`/properties/${params.id}`),
         element: (
           <PrivateRoute>
@@ -56,7 +62,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/userdashboard",
+    path: "userdashboard",
     element: (
       <PrivateRoute>
         <UserDashboard />
@@ -64,7 +70,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/userdashboard/profile",
+        path: "profile",
         element: <UserProfile />,
       },
       {
@@ -77,16 +83,50 @@ const router = createBrowserRouter([
       },
       {
         path: "reviews",
-        element: <Reiviews />,
+        element: <Reviews />,
       },
     ],
   },
   {
-    path: "/admindashboard",
-    element: <AdminDashboard />,
+    path: "agentdashboard",
+    element: (
+      <PrivateRoute>
+        <AgentDashboard />
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: "/admindashboard/profile",
+        path: "profile",
+        element: <AgentProfile />,
+      },
+      {
+        path: "addproperty",
+        element: <AddProperty />,
+      },
+      {
+        path: "addedproperties",
+        element: <AddedProperties />,
+      },
+      {
+        path: "soldproperties",
+        element: <SoldProperties />,
+      },
+      {
+        path: "requestedproperties",
+        element: <RequestedProperties />,
+      },
+    ],
+  },
+  {
+    path: "admindashboard",
+    element: (
+      <PrivateRoute>
+        <AdminDashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "profile",
         element: <AdminProfile />,
       },
       {
