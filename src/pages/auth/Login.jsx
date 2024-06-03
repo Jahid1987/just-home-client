@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FaGoogle, FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -7,8 +7,9 @@ import useAuth from "../../hooks/useAuth";
 import auth from "../../firebase/firebase.config";
 import PageBanner from "../../components/PageBanner";
 import bannerbg from "../../assets/auth.png";
+import SocialLogin from "./SocialLogin";
 const Login = () => {
-  const { signInUser, registerUserWithGoogle } = useAuth();
+  const { signInUser } = useAuth();
   const [isPassword, setIsPassword] = useState(true);
   const [isCreating, setisCreating] = useState(false);
   const location = useLocation();
@@ -26,17 +27,6 @@ const Login = () => {
       await signInUser(data.email, data.password);
       setisCreating(false);
       toast.success(`Welcome, ${auth.currentUser.displayName}`);
-      navigate(`${location.state || "/"}`);
-    } catch (error) {
-      toast.error("Your credentials wrong!");
-    }
-  }
-
-  // sign in with google
-  async function handleSignInWithGoogle() {
-    try {
-      await registerUserWithGoogle();
-      toast.success(`Welcome to HJ hotels`);
       navigate(`${location.state || "/"}`);
     } catch (error) {
       toast.error("Your credentials wrong!");
@@ -110,13 +100,7 @@ const Login = () => {
 
         <h3 className="text-2xl text-center font-semibold mb-2">Or</h3>
         <div className="mx-auto mb-5 text-center space-y-3 flex flex-col w-2/3">
-          <button
-            onClick={handleSignInWithGoogle}
-            className="btn btn-outline w-full"
-          >
-            <FaGoogle className="text-2xl" />
-            Log in With Google
-          </button>
+          <SocialLogin />
         </div>
       </div>
     </div>

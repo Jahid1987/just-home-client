@@ -8,6 +8,7 @@ import PageBanner from "../../components/PageBanner";
 import bannerbg from "../../assets/auth.png";
 import useUploadImage from "../../hooks/useUploadImage";
 import useUser from "../../hooks/useUser";
+import SocialLogin from "./SocialLogin";
 
 const Register = () => {
   const { registerWithEmailPass, updateUserProfile } = useAuth();
@@ -140,6 +141,10 @@ const Register = () => {
             </Link>
           </p>
         </form>
+        <h3 className="text-2xl text-center font-semibold mb-2">Or</h3>
+        <div className="mx-auto mb-5 text-center space-y-3 flex flex-col w-2/3">
+          <SocialLogin />
+        </div>
       </div>
     </div>
   );
