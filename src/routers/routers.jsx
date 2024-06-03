@@ -12,6 +12,11 @@ import UserProfile from "../pages/userDashboard/UserProfile";
 import Wishlist from "../pages/userDashboard/Wishlist";
 import Orders from "../pages/userDashboard/Orders";
 import Reiviews from "../pages/userDashboard/Reiviews";
+import AdminDashboard from "../Layout/AdminDashboard";
+import ManageProperties from "../pages/adminDashboard/ManageProperties";
+import ManageUsers from "../pages/adminDashboard/ManageUsers";
+import ManageReviews from "../pages/adminDashboard/ManageReviews";
+import AdminProfile from "../pages/adminDashboard/AdminProfile";
 
 const router = createBrowserRouter([
   {
@@ -59,7 +64,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/userdashboard",
+        path: "/userdashboard/profile",
         element: <UserProfile />,
       },
       {
@@ -78,27 +83,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/admindashboard",
-    element: (
-      <PrivateRoute>
-        <UserDashboard />
-      </PrivateRoute>
-    ),
+    element: <AdminDashboard />,
     children: [
       {
-        path: "/admindashboard",
-        element: <UserProfile />,
+        path: "/admindashboard/profile",
+        element: <AdminProfile />,
       },
       {
-        path: "wishlist",
-        element: <Wishlist />,
+        path: "properties",
+        element: <ManageProperties />,
       },
       {
-        path: "orders",
-        element: <Orders />,
+        path: "users",
+        element: <ManageUsers />,
       },
       {
         path: "reviews",
-        element: <Reiviews />,
+        element: <ManageReviews />,
       },
     ],
   },

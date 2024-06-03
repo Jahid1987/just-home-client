@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 
-const UserDashboard = () => {
+const AdminDashboard = () => {
   const [isSidebar, setIsSidebar] = useState(true);
   function toggleSidebar() {
     setIsSidebar(!isSidebar);
@@ -16,25 +16,25 @@ const UserDashboard = () => {
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
         <FaUser />
-        User Profile
+        Admin Profile
       </NavLink>
       <NavLink
-        to="wishlist"
+        to="properties"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
-        Wishlists
+        Manage Properties
       </NavLink>
       <NavLink
-        to="orders"
+        to="users"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
-        Orders
+        Manage Users
       </NavLink>
       <NavLink
         to="reviews"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
-        Reviews
+        Manage Reviews.
       </NavLink>
     </>
   );
@@ -47,7 +47,9 @@ const UserDashboard = () => {
         } flex-col w-64 bg-gray-800`}
       >
         <div className="flex items-center justify-center h-16 bg-gray-900">
-          <span className="text-white font-bold uppercase">Sidebar</span>
+          <span className="text-white font-bold uppercase">
+            Admin Dashboard
+          </span>
         </div>
         <div className="flex flex-col flex-1 overflow-y-auto">
           <nav className="flex-1 px-2 py-4 bg-gray-800">{sidebarLinks}</nav>
@@ -111,4 +113,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default AdminDashboard;
