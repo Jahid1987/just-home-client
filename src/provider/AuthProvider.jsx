@@ -11,10 +11,11 @@ import {
   signOut,
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
-import axios from "axios";
+import { axiosPublic } from "../hooks/useAxiosPublic";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [savedUser, setSavedUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // social media providers
@@ -55,30 +56,16 @@ const AuthProvider = ({ children }) => {
   }
   // user  observer
   useEffect(() => {
-    const unsubcribe = onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user?.email;
-      const loggedUser = { email: userEmail };
-
-      // setting and deleting token
+    const unsubcribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        axios
-          .post("https://hj-hotel.vercel.app/jwt", loggedUser, {
-            withCredentials: true,
-          })
-          .then(() => {
-            setUser(currentUser);
-            setIsLoading(false);
-          });
+        setUser(currentUser);
+        const { data } = await axiosPublic.get(`/users/${currentUser.email}`);
+        setSavedUser(data);
+        setIsLoading(false);
       } else {
-        axios
-          .post("https://hj-hotel.vercel.app/logout", loggedUser, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log(res.data);
-            setUser(currentUser);
-            setIsLoading(false);
-          });
+        setUser(currentUser);
+        setIsLoading(false);
+        setSavedUser(null);
       }
     });
     return () => unsubcribe();
@@ -88,6 +75,7 @@ const AuthProvider = ({ children }) => {
     user,
     setUser,
     isLoading,
+    savedUser,
     signInUser,
     registerWithEmailPass,
     updateUserProfile,

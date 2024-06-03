@@ -23,6 +23,7 @@ import AddProperty from "../pages/agentDashboard/AddProperty";
 import AddedProperties from "../pages/agentDashboard/AddedProperties";
 import SoldProperties from "../pages/agentDashboard/SoldProperties";
 import RequestedProperties from "../pages/agentDashboard/RequestedProperties";
+import MakeOffer from "../pages/userDashboard/MakeOffer";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,7 @@ const router = createBrowserRouter([
         path: "wishlist",
         element: <Wishlist />,
       },
+      { path: "wishlist/makeoffer/:id", element: <MakeOffer /> },
       {
         path: "orders",
         element: <Orders />,

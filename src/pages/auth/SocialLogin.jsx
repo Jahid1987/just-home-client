@@ -13,8 +13,12 @@ const SocialLogin = () => {
   async function handleSignInWithGoogle() {
     try {
       const { user } = await registerUserWithGoogle();
-      await createUser(user, user.photoURL);
-      toast.success(`Welcome to HJ hotels`);
+      createUser(user, user.photoURL)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+      toast.success(`Welcome to JustHome`);
       navigate(`${location.state || "/"}`);
     } catch (error) {
       toast.error("Your credentials wrong!");

@@ -17,14 +17,17 @@ const useUser = () => {
 
   // creating user in mongodb
   async function createUser(userDetails, image) {
-    let newUser = {
-      name: userDetails.displayName,
-      image,
-      email: userDetails.email,
-      role: "user",
-    };
-    await axiosPublic.post("/users", newUser);
-    newUser = {};
+    try {
+      let newUser = {
+        name: userDetails.displayName,
+        image,
+        email: userDetails.email,
+        role: "user",
+      };
+      await axiosPublic.post("/users", newUser);
+    } catch (err) {
+      return err;
+    }
   }
 
   return { getUser, createUser };

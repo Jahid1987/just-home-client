@@ -3,27 +3,15 @@ import logo from "../assets/logo.svg";
 import PrimaryButton from "./PrimaryButton";
 import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
-import useUser from "../hooks/useUser";
-import { useEffect, useState } from "react";
 
 const Nav = () => {
-  const { user, logOutUser, isLoading } = useAuth();
-  const { getUser } = useUser();
-  const [role, setRole] = useState(null);
+  const { user, logOutUser, savedUser } = useAuth();
+  // console.log(isLoading);
   // user logout
   async function handleLogOut() {
     await logOutUser();
     toast.success("Logout successfully");
   }
-
-  // getting role
-  useEffect(() => {
-    if (user && !isLoading) {
-      getUser(user).then((res) => setRole(res.role));
-    } else {
-      setRole(null);
-    }
-  }, [user]);
 
   const navlinks = (
     <>
@@ -33,21 +21,24 @@ const Nav = () => {
       <li>
         <NavLink to="/properties">All properties</NavLink>
       </li>
-      {role === "user" && (
-        <li>
-          <NavLink to="/userdashboard">User Dashboard</NavLink>
-        </li>
-      )}
-      {role === "agent" && (
-        <li>
-          <NavLink to="/agentdashboard">Agent Dashboard</NavLink>
-        </li>
-      )}
-      {role === "admin" && (
-        <li>
-          <NavLink to="/admindashboard">Admin Dashboard</NavLink>
-        </li>
-      )}
+      <>
+        {" "}
+        {savedUser?.role === "user" && (
+          <li>
+            <NavLink to="/userdashboard">User Dashboard</NavLink>
+          </li>
+        )}
+        {savedUser?.role === "agent" && (
+          <li>
+            <NavLink to="/agentdashboard">Agent Dashboard</NavLink>
+          </li>
+        )}
+        {savedUser?.role === "admin" && (
+          <li>
+            <NavLink to="/admindashboard">Admin Dashboard</NavLink>
+          </li>
+        )}
+      </>
     </>
   );
   return (
