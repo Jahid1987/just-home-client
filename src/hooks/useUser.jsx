@@ -1,12 +1,11 @@
-import useAuth from "./useAuth";
 import { axiosPublic } from "./useAxiosPublic";
 import useAxiosSecure from "./useAxiosSecure";
 
 const useUser = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+
   //   getting user from mongodb
-  async function getUser() {
+  async function getUser(user) {
     try {
       const { data: foundUser } = await axiosSecure.get(`/users/${user.email}`);
       return foundUser;

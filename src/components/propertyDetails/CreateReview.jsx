@@ -3,31 +3,27 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { toast } from "react-toastify";
 import { Rating } from "@smastrom/react-rating";
-import useUser from "../../hooks/useUser";
 const Review = ({ propertyReview }) => {
   const [review, seReview] = useState("");
   const [rating, setRating] = useState(0);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { getUser } = useUser();
 
   const { title, _id } = propertyReview;
 
   // handle review
   async function handleReview() {
-    const { _id: userId, image: user_image, name: user_name } = await getUser();
-
     const userReview = {
       propertyId: _id,
-      userId,
+      reviewr_email: user.email,
       property_title: title,
-      user_name,
-      user_image,
+      user_name: user.displayName,
+      user_image: user.photoURL,
       rating,
       comment: review,
       created_at: new Date(),
     };
-    console.log(userReview, user.uid);
+
     try {
       await axiosSecure.post(`/reviews`, userReview);
       toast.success("Thank you for your review.");
@@ -46,7 +42,7 @@ const Review = ({ propertyReview }) => {
           <div className="flex items-center gap-2">
             <p className="text-lg font-semibold">Rate our room:</p>
             <Rating
-              style={{ maxWidth: 180 }}
+              style={{ maxWidth: 100 }}
               value={rating}
               onChange={setRating}
             />

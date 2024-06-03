@@ -1,3 +1,5 @@
+import { Rating } from "@smastrom/react-rating";
+
 const Review = ({ review }) => {
   const { rating, comment, user_image, user_name } = review;
   return (
@@ -12,8 +14,8 @@ const Review = ({ review }) => {
           <h3 className=" text-xl font-medium mt-3">{user_name}</h3>
         </div>
       </div>
-      <p className="text-lg mb-2">{rating}</p>
-      <blockquote>{comment}</blockquote>
+      <Rating value={rating} style={{ maxWidth: 100 }} readOnly />
+      <blockquote className="mt-3">{comment}</blockquote>
     </div>
   );
 };

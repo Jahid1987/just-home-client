@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 import axios from "axios";
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
