@@ -20,13 +20,17 @@ const PropertyDetails = () => {
     title,
     location,
     image,
-    details,
-    price_range,
-    reviews,
+    description,
+    max_price,
+    min_price,
     verification_status,
     agent_name,
     agent_image,
+    beds,
+    baths,
+    size,
     _id,
+    reviews,
   } = property;
   // adding to wishlist
   async function handleWishList() {
@@ -40,7 +44,9 @@ const PropertyDetails = () => {
         agent_name,
         agent_image,
         verification_status,
-        price_range,
+        min_price,
+        max_price,
+        size,
       };
       await axiosSecure.post("/wishlists", wishlist);
       toast.success(`${title} added to your wishlist.`);
@@ -85,17 +91,17 @@ const PropertyDetails = () => {
             <p className="text-gray-600">
               <i className="fas fa-map-marker-alt"></i> {location}
             </p>
-            <p className="mt-4 text-gray-700">{details}</p>
+            <p className="mt-4 text-gray-700">{description}</p>
             <div className="flex items-center mt-4">
               <FaBed className="text-gray-600 w-5 h-5 mr-2" />
-              <span className="mr-4">4 Beds</span>
+              <span className="mr-4">{beds} Beds</span>
               <FaBath className="text-gray-600 w-5 h-5 mr-2" />
-              <span className="mr-4">2 Baths</span>
+              <span className="mr-4">{baths}Baths</span>
               <FaRulerCombined className="text-gray-600 w-5 h-5 mr-2" />
               <span>350 sqft</span>
             </div>
             <p className="text-2xl font-bold text-red-600 my-4">
-              ${price_range[0]} - ${price_range[1]}
+              ${min_price} - ${max_price}
             </p>
             <div className="grid grid-cols-2 gap-2">
               <SecondaryButton

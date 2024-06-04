@@ -8,7 +8,12 @@ import { Link } from "react-router-dom";
 const Wishlist = () => {
   const axiosSecure = useAxiosSecure();
   // fetching data
-  const { data: wishlists = [], refetch } = useQuery({
+  const {
+    data: wishlists = [],
+    refetch,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["wishlists"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/wishlists");
@@ -24,7 +29,8 @@ const Wishlist = () => {
     await refetch();
     deleteMessage();
   }
-
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Properties not found.</p>;
   return (
     <div>
       <div className="overflow-x-auto">
@@ -80,7 +86,7 @@ const Wishlist = () => {
                   </div>
                 </td>
                 <td>
-                  ${item.price_range[0]} - ${item.price_range[1]}
+                  ${item.min_price} - ${item.max_price}
                 </td>
                 <td>
                   <Link to={`makeoffer/${item._id}`}>

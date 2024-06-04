@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: "propertydetails/:id",
-        loader: ({ params }) => axiosPublic(`/properties/${params.id}`),
+        loader: ({ params }) => axiosPublic(`/propertydetails/${params.id}`),
         element: (
           <PrivateRoute>
             <PropertyDetails />

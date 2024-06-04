@@ -1,12 +1,16 @@
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import SecondaryButton from "../../components/SecondaryButton";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
+import useSecureCRUD from "../../hooks/useSecureCRUD";
 
 const MakeOffer = () => {
+  const { createDoc } = useSecureCRUD();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,30 +18,38 @@ const MakeOffer = () => {
   } = useForm();
   const axiosSecure = useAxiosSecure();
   const { savedUser } = useAuth();
+  // getting the specifit property
   const { id } = useParams();
   const { data: property = {} } = useQuery({
     queryKey: ["wishlistProperty"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/wishlists/${id}`);
-      console.log(data.price_range);
+
       return data;
     },
   });
 
+  // handling the make offer
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (newDoc) => await createDoc("/offers", newDoc),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["offers"]);
+    },
+  });
   const handleMakeOffer = async (data) => {
-    console.log(errors);
     try {
       const offer = {
         property_title: property?.title,
         property_location: property?.location,
         agent_name: property?.agent_name,
-        offered_amount: data.offeredAmount,
+        offered_amount: parseInt(data.offeredAmount),
         buyer_email: savedUser.email,
         buyer_name: savedUser.name,
         buying_date: new Date(),
+        status: "pending",
       };
-      console.log(offer);
-      // await axiosSecure.post("/offers", offer);
+      await mutateAsync(offer);
+      navigate("/userdashboard/orders");
       toast.success("Offer Made to the agent");
     } catch (error) {
       console.error("Error submitting offer:", error);
@@ -46,7 +58,7 @@ const MakeOffer = () => {
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md mt-10">
-      <h2 className="text-2xl font-bold mb-6">Submit an Offer</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">Submit an Offer</h2>
       <form onSubmit={handleSubmit(handleMakeOffer)} className="space-y-4">
         <div className="form-control">
           <label className="label">
@@ -89,11 +101,11 @@ const MakeOffer = () => {
             <span className="label-text">Offered Amount</span>
             <span className="label-text">
               {errors.offeredAmount && (
-                <span>
+                <span className="text-red-500">
                   {errors.offeredAmount.type === "min" &&
-                    "Amount must be at least 10"}
+                    `Amount must be at least ${property.min_price}`}
                   {errors.offeredAmount.type === "max" &&
-                    "Amount must be at most 15"}
+                    `Amount must be at most ${property.max_price}`}
                   {errors.offeredAmount.type === "required" &&
                     "Amount is required"}
                 </span>
@@ -104,10 +116,11 @@ const MakeOffer = () => {
             type="number"
             name="offeredAmount"
             className="input input-bordered w-full"
+            placeholder={`Price must me between ${property.min_price} and ${property.max_price}`}
             {...register("offeredAmount", {
               required: true,
-              min: property.price_range[0],
-              max: property.price_range[1],
+              min: property.min_price,
+              max: property.max_price,
             })}
           />
         </div>
@@ -136,7 +149,7 @@ const MakeOffer = () => {
           />
         </div>
         <div>
-          <SecondaryButton name="Make Offer" />
+          <SecondaryButton isPending={isPending} name="Make Offer" />
         </div>
       </form>
     </div>
