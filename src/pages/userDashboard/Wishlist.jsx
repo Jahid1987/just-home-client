@@ -24,6 +24,7 @@ const Wishlist = () => {
     await refetch();
     deleteMessage();
   }
+
   return (
     <div>
       <div className="overflow-x-auto">

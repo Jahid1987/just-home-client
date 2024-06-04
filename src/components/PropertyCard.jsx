@@ -2,8 +2,16 @@ import { CiLocationOn } from "react-icons/ci";
 import SecondaryButton from "./SecondaryButton";
 import { Link } from "react-router-dom";
 const PropertyCard = ({ property }) => {
-  const { image, title, price_range, verification_status, location, _id } =
-    property;
+  const {
+    image,
+    title,
+    min_price,
+    max_price,
+    verification_status,
+    location,
+    _id,
+  } = property;
+
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <figure className="relative">
@@ -41,7 +49,7 @@ const PropertyCard = ({ property }) => {
           {location}
         </p>
         <p className="text-gray-500 text-lg">
-          Price: ${price_range[0]} - ${price_range[1]}
+          Price: ${min_price} - ${max_price}
         </p>
         <Link className="w-full" to={`/propertydetails/${_id}`}>
           <SecondaryButton name="Details" />
