@@ -30,7 +30,7 @@ const Wishlist = () => {
     deleteMessage();
   }
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Properties not found.</p>;
+  if (error) return <p>Items not found.</p>;
   return (
     <div>
       <div className="overflow-x-auto">

@@ -9,16 +9,17 @@ const Review = ({ propertyReview }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { title, _id } = propertyReview;
-
+  const { title, agent_name, _id } = propertyReview;
+  console.log(propertyReview);
   // handle review
   async function handleReview() {
     const userReview = {
       propertyId: _id,
       reviewr_email: user.email,
       property_title: title,
-      user_name: user.displayName,
-      user_image: user.photoURL,
+      reviewer_name: user.displayName,
+      reviewer_image: user.photoURL,
+      agent_name: agent_name,
       rating,
       comment: review,
       created_at: new Date(),

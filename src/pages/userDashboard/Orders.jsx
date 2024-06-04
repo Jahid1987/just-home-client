@@ -17,7 +17,7 @@ const Orders = () => {
       await getDocs(`/offers?buyer_email=${savedUser.email}`),
   });
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Properties not found.</p>;
+  if (error) return <p>Items not found.</p>;
   return (
     <div>
       <h3 className="text-xl md:text-2xl lg:text-3xl text-center mb-3 md:mb-5">

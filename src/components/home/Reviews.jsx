@@ -50,12 +50,12 @@ const Reviews = () => {
             <div className="flex justify-between">
               <div className="flex items-center gap-2 text-[#1A1A1A]">
                 <img
-                  src={testimonials[currentIndex]?.user_image}
-                  alt={testimonials[currentIndex]?.user_name}
+                  src={testimonials[currentIndex]?.reviewer_image}
+                  alt={testimonials[currentIndex]?.reviewer_name}
                   className="w-24 h-24 rounded-full object-cover mb-3"
                 />
                 <h3 className=" text-xl font-medium mt-3">
-                  {testimonials[currentIndex]?.user_name}
+                  {testimonials[currentIndex]?.reviewer_name}
                 </h3>
               </div>
               <svg
