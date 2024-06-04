@@ -1,20 +1,6 @@
 import { axiosPublic } from "./useAxiosPublic";
-import useAxiosSecure from "./useAxiosSecure";
 
 const useUser = () => {
-  const axiosSecure = useAxiosSecure();
-
-  //   getting user from mongodb
-  async function getUser(user) {
-    try {
-      const { data: foundUser } = await axiosSecure.get(`/users/${user.email}`);
-      return foundUser;
-    } catch (err) {
-      console.log(err);
-      return err;
-    }
-  }
-
   // creating user in mongodb
   async function createUser(userDetails, image) {
     try {
@@ -30,7 +16,7 @@ const useUser = () => {
     }
   }
 
-  return { getUser, createUser };
+  return { createUser };
 };
 
 export default useUser;

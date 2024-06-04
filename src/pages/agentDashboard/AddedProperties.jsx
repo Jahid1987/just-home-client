@@ -11,24 +11,31 @@ const AddedProperties = () => {
   const { savedUser } = useAuth();
   const queryClient = useQueryClient();
 
-  // reading data based on agent eamil
-  const { data: properties = [], isLoading } = useQuery({
+  // reading properties based on agent eamil
+  const {
+    data: properties = [],
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["properties"],
     queryFn: async () =>
       await getDocs(`/properties?agent_email=${savedUser.email}`),
   });
-  // deleting data based on id
+  // deleting properties based on id
   const { mutateAsync } = useMutation({
     mutationFn: deleteDoc,
     onSuccess: () => queryClient.invalidateQueries(["properties"]),
   });
+
   async function handleDelete(id) {
     const res = await confirmDelete();
     if (!res.isConfirmed) return;
     await mutateAsync(`/properties/${id}`);
     deleteMessage();
   }
+
   if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Properties not found.</p>;
   return (
     <div>
       <div className="overflow-x-auto">
@@ -40,6 +47,7 @@ const AddedProperties = () => {
               <th>Property Details</th>
               <th>Agent Details</th>
               <th>Price Range</th>
+              <th>Status</th>
               <th>Update</th>
               <th>Delete</th>
             </tr>
@@ -77,9 +85,6 @@ const AddedProperties = () => {
                     </div>
                     <div>
                       <div className="font-bold">{item.agent_name}</div>
-                      <div className="text-sm opacity-50">
-                        {item.verification_status}
-                      </div>
                     </div>
                   </div>
                 </td>
@@ -87,9 +92,16 @@ const AddedProperties = () => {
                   ${item.min_price} - ${item.max_price}
                 </td>
                 <td>
-                  <Link to={`makeoffer/${item._id}`}>
-                    <span className="badge badge-success">Update</span>
-                  </Link>
+                  <span className="badge badge-info">
+                    {item.verification_status}
+                  </span>
+                </td>
+                <td>
+                  {item.verification_status !== "rejected" && (
+                    <Link to={`/agentdashboard/updateproperty/${item._id}`}>
+                      <span className="badge badge-success">Update</span>
+                    </Link>
+                  )}
                 </td>
                 <th>
                   <span

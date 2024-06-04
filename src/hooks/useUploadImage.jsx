@@ -8,8 +8,11 @@ const useUploadImage = () => {
       const response = await axiosPublic.post(image_upload_api, imageFile, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      return response;
+      if (response?.data.success) {
+        return { success: true, display_url: response.data.data.display_url };
+      }
     } catch (err) {
+      console.log(err);
       return err;
     }
   }

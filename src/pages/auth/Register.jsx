@@ -29,16 +29,18 @@ const Register = () => {
       setisCreating(true);
       // uploading image to imagebb
       const imageFile = { image: data.image[0] };
-      const response = await uploadImage(imageFile);
-      const photoURL = response.data.data.display_url; // url from imagebb
-      if (response.data.success) {
-        const { user } = await registerWithEmailPass(data.email, data.password);
-        await updateUserProfile(data.name, photoURL);
-        await createUser(user, photoURL);
+      const { success, display_url: photoURL } = await uploadImage(imageFile);
+
+      if (!success) {
         setisCreating(false);
-        navigate("/");
-        toast.success("Registration successfull!");
+        return toast.error("Cannot upload Image");
       }
+      const { user } = await registerWithEmailPass(data.email, data.password);
+      await updateUserProfile(data.name, photoURL);
+      await createUser(user, photoURL);
+      setisCreating(false);
+      navigate("/");
+      toast.success("Registration successfull!");
     } catch (error) {
       setisCreating(false);
       console.log(error);

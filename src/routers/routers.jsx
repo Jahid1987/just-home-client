@@ -24,6 +24,7 @@ import AddedProperties from "../pages/agentDashboard/AddedProperties";
 import SoldProperties from "../pages/agentDashboard/SoldProperties";
 import RequestedProperties from "../pages/agentDashboard/RequestedProperties";
 import MakeOffer from "../pages/userDashboard/MakeOffer";
+import UpdateProperty from "../pages/agentDashboard/UpdateProperty";
 
 const router = createBrowserRouter([
   {
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
       {
         path: "addproperty",
         element: <AddProperty />,
+      },
+      {
+        path: "updateproperty/:id",
+        element: <UpdateProperty />,
       },
       {
         path: "addedproperties",

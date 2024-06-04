@@ -1,27 +1,41 @@
 import { useForm } from "react-hook-form";
 import SecondaryButton from "../../components/SecondaryButton";
 import useAuth from "../../hooks/useAuth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import useUploadImage from "../../hooks/useUploadImage";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import useSecureCRUD from "../../hooks/useSecureCRUD";
+import { useParams } from "react-router-dom";
 
-const AddProperty = () => {
+const UpdateProperty = () => {
   const { savedUser } = useAuth();
   const uploadImage = useUploadImage();
-  const { createDoc } = useSecureCRUD();
-  const [isCreating, setisCreating] = useState(false);
+  const { updateDoc, getDoc } = useSecureCRUD();
+  const [isUpdating, setisUpdating] = useState(false);
+  const { id } = useParams();
+
   // access client
   const queryClient = useQueryClient();
   // mutaions
   const { mutateAsync } = useMutation({
-    mutationFn: async (newDoc) => await createDoc("/properties", newDoc),
+    mutationFn: async (updatedDoc) =>
+      await updateDoc(`/properties/${id}`, updatedDoc),
     onSuccess: () => {
       queryClient.invalidateQueries("properties");
     },
   });
+
+  const {
+    data: property = {},
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["property"],
+    queryFn: () => getDoc(`/properties/${id}`),
+  });
+  // console.log(property);
   const {
     register,
     handleSubmit,
@@ -29,16 +43,16 @@ const AddProperty = () => {
   } = useForm();
 
   // handle adding property
-  async function handleAddProperty(data) {
+  async function handleUpdateProperty(data) {
     const { baths, beds, max_price, min_price, size, image, ...rest } = data;
 
     try {
-      setisCreating(true);
+      setisUpdating(true);
       // uploading image to imagebb
       const imageFile = { image: image[0] };
       const { success, display_url: photoURL } = await uploadImage(imageFile);
       if (!success) {
-        setisCreating(false);
+        setisUpdating(false);
         return toast.error("Cannot upload Image");
       }
 
@@ -50,27 +64,26 @@ const AddProperty = () => {
         size: parseInt(size),
         image: photoURL,
         ...rest,
-        agent_name: savedUser?.name,
-        agent_email: savedUser?.email,
-        agent_image: savedUser?.image,
-        created_at: new Date(),
-        verification_status: "pending",
+        updated_at: new Date(),
       };
+      console.log(property);
       await mutateAsync(property);
-      setisCreating(false);
-      toast.success("Property Added Successfully");
+      setisUpdating(false);
+      toast.success("Property Updated Successfully");
     } catch (err) {
       console.log(err);
-      toast.error("Could not add item");
-      setisCreating(false);
+      toast.error("Could not update item");
+      setisUpdating(false);
     }
   }
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Properties not found.</p>;
   return (
     <div className="card shrink-0 w-full border-separate">
       <h3 className="text-xl md:text-2xl lg:text-3xl text-center my-3 md:my-5">
-        Add Property
+        Update Property
       </h3>
-      <form onSubmit={handleSubmit(handleAddProperty)} className="card-body">
+      <form onSubmit={handleSubmit(handleUpdateProperty)} className="card-body">
         {/* row 1 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <div className="form-control">
@@ -87,6 +100,7 @@ const AddProperty = () => {
               type="text"
               placeholder="title"
               className="input input-bordered"
+              defaultValue={property?.title}
             />
           </div>
           <div className="form-control">
@@ -103,6 +117,7 @@ const AddProperty = () => {
               type="text"
               placeholder="location"
               className="input input-bordered"
+              defaultValue={property?.location}
             />
           </div>
         </div>
@@ -159,6 +174,7 @@ const AddProperty = () => {
                 type="number"
                 placeholder="Minimum Price"
                 className="input input-bordered"
+                defaultValue={property?.min_price}
               />
             </div>
             <div className="form-control ">
@@ -175,6 +191,7 @@ const AddProperty = () => {
                 type="number"
                 placeholder="Maximum Price"
                 className="input input-bordered"
+                defaultValue={property?.max_price}
               />
             </div>
           </div>
@@ -190,6 +207,7 @@ const AddProperty = () => {
               type="number"
               placeholder="title"
               className="input input-bordered"
+              defaultValue={property?.beds}
             />
           </div>
           <div className="form-control">
@@ -201,6 +219,7 @@ const AddProperty = () => {
               type="number"
               placeholder="baths"
               className="input input-bordered"
+              defaultValue={property?.baths}
             />
           </div>
           <div className="form-control">
@@ -212,6 +231,7 @@ const AddProperty = () => {
               type="number"
               placeholder="size"
               className="input input-bordered"
+              defaultValue={property?.size}
             />
           </div>
         </div>
@@ -230,14 +250,15 @@ const AddProperty = () => {
             {...register("description", { required: true })}
             placeholder="Description"
             className="textarea textarea-bordered textarea-lg w-full "
+            defaultValue={property?.description}
           ></textarea>
         </div>
         <div className="form-control mt-6">
-          <SecondaryButton isPending={isCreating} name="Add Property" />
+          <SecondaryButton isPending={isUpdating} name="Update Property" />
         </div>
       </form>
     </div>
   );
 };
 
-export default AddProperty;
+export default UpdateProperty;
