@@ -28,7 +28,7 @@ const UserDashboard = () => {
         to="orders"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
-        Orders
+        Property Bought
       </NavLink>
       <NavLink
         to="reviews"

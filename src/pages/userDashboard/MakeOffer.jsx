@@ -20,7 +20,11 @@ const MakeOffer = () => {
   const { savedUser } = useAuth();
   // getting the specifit property
   const { id } = useParams();
-  const { data: property = {} } = useQuery({
+  const {
+    data: property = {},
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["wishlistProperty"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/wishlists/${id}`);
@@ -39,6 +43,7 @@ const MakeOffer = () => {
   const handleMakeOffer = async (data) => {
     try {
       const offer = {
+        property_image: property?.image,
         property_title: property?.title,
         property_location: property?.location,
         agent_name: property?.agent_name,
@@ -55,7 +60,8 @@ const MakeOffer = () => {
       console.error("Error submitting offer:", error);
     }
   };
-
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Properties not found.</p>;
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md mt-10">
       <h2 className="text-2xl font-bold mb-6 text-center">Submit an Offer</h2>

@@ -5,6 +5,7 @@ const useSecureCRUD = () => {
   //   reading docs
   async function getDocs(endPoint) {
     const { data } = await axiosSecure.get(endPoint);
+
     return data;
   }
   // reading single doc
