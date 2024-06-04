@@ -40,7 +40,7 @@ const Reviews = () => {
   return (
     <div>
       <h3 className="text-xl md:text-2xl lg:text-3xl text-center mb-3 md:mb-5">
-        Your total reviews {reviews.length}
+        My total reviews {reviews.length}
       </h3>
       <div className="overflow-x-auto">
         <table className="table">

@@ -43,16 +43,19 @@ const MakeOffer = () => {
   const handleMakeOffer = async (data) => {
     try {
       const offer = {
+        property_id: property?.property_id,
         property_image: property?.image,
         property_title: property?.title,
         property_location: property?.location,
         agent_name: property?.agent_name,
+        agent_email: property?.agent_email,
         offered_amount: parseInt(data.offeredAmount),
         buyer_email: savedUser.email,
         buyer_name: savedUser.name,
         buying_date: new Date(),
         status: "pending",
       };
+      console.log(offer);
       await mutateAsync(offer);
       navigate("/userdashboard/orders");
       toast.success("Offer Made to the agent");

@@ -25,6 +25,7 @@ const AddProperty = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -58,6 +59,7 @@ const AddProperty = () => {
       };
       await mutateAsync(property);
       setisCreating(false);
+      reset();
       toast.success("Property Added Successfully");
     } catch (err) {
       console.log(err);

@@ -29,6 +29,7 @@ const Login = () => {
       toast.success(`Welcome, ${auth.currentUser.displayName}`);
       navigate(`${location.state || "/"}`);
     } catch (error) {
+      setisCreating(false);
       toast.error("Your credentials wrong!");
     }
   }
