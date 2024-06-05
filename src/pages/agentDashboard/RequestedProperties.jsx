@@ -1,21 +1,33 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecureCRUD from "../../hooks/useSecureCRUD";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const RequestedProperties = () => {
-  const { getDocs } = useSecureCRUD();
+  const { getDocs, updateDoc } = useSecureCRUD();
   const { savedUser } = useAuth();
 
   const {
     data: offers = [],
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["offers"],
     queryFn: async () =>
       await getDocs(`/offers?agent_email=${savedUser.email}`),
   });
 
+  async function handleStatus(item, status) {
+    const updatedDoc = {
+      property_id: item.property_id, // this id for updating others offer status to rejected
+      status,
+    };
+    console.log(updatedDoc);
+    await updateDoc(`/offers/${item._id}`, updatedDoc);
+    await refetch();
+    toast.success("Status updated");
+  }
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Items not found.</p>;
   return (
@@ -33,8 +45,7 @@ const RequestedProperties = () => {
               <th>Buyer Email</th>
               <th>Buyer Name</th>
               <th>Offered Amount</th>
-              <th>Offer Status</th>
-              <th>Pay</th>
+              <th>Actions/Status</th>
             </tr>
           </thead>
           <tbody>
@@ -63,16 +74,34 @@ const RequestedProperties = () => {
                 <td>{item?.buyer_email}</td>
                 <td>{item?.buyer_name}</td>
                 <td>{item?.offered_amount}</td>
-                <td>
-                  <span className="badge badge-info">{item?.status}</span>
-                </td>
-                <td>
-                  {item?.status !== "accepted" ? (
-                    <span className="badge badge-success">Accept</span>
-                  ) : (
-                    <span className="badge text-gray-400">Waiting</span>
-                  )}
-                </td>
+                {item?.status !== "pending" ? (
+                  <td className="text-center">
+                    <span
+                      className={`badge ${
+                        item?.status === "accepted"
+                          ? "badge-info"
+                          : "badge-warning"
+                      }`}
+                    >
+                      {item?.status}
+                    </span>
+                  </td>
+                ) : (
+                  <td className="space-y-3 text-center">
+                    <span
+                      onClick={() => handleStatus(item, "accepted")}
+                      className="badge cursor-pointer badge-success"
+                    >
+                      Accept
+                    </span>
+                    <span
+                      onClick={() => handleStatus(item, "rejected")}
+                      className="badge cursor-pointer badge-error"
+                    >
+                      Reject
+                    </span>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

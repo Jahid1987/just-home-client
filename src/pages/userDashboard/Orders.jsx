@@ -62,7 +62,17 @@ const Orders = () => {
                 <td>{item?.agent_name}</td>
                 <td>{item?.offered_amount}</td>
                 <td>
-                  <span className="badge badge-info">{item?.status}</span>
+                  <span
+                    className={`badge ${
+                      item?.status === "pending"
+                        ? "badge-success"
+                        : item?.status === "accepted"
+                        ? "badge-info"
+                        : "badge-error"
+                    }`}
+                  >
+                    {item?.status}
+                  </span>
                 </td>
                 <td>
                   {item?.status === "accepted" ? (

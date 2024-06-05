@@ -10,7 +10,7 @@ const Review = ({ propertyReview }) => {
   const axiosSecure = useAxiosSecure();
 
   const { title, agent_name, _id } = propertyReview;
-  console.log(propertyReview);
+
   // handle review
   async function handleReview() {
     const userReview = {
