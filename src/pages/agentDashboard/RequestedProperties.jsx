@@ -19,15 +19,20 @@ const RequestedProperties = () => {
   });
 
   async function handleStatus(item, status) {
-    const updatedDoc = {
-      property_id: item.property_id, // this id for updating others offer status to rejected
-      status,
-    };
-    console.log(updatedDoc);
-    await updateDoc(`/offers/${item._id}`, updatedDoc);
-    await refetch();
-    toast.success("Status updated");
+    try {
+      const updatedDoc = {
+        property_id: item.property_id, // this id for updating others offer status to rejected
+        status,
+      };
+      await updateDoc(`/offers/${item._id}`, updatedDoc);
+      await refetch();
+      toast.success("Status updated");
+    } catch (err) {
+      toast.error("Something wrong!");
+      console.log(err);
+    }
   }
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Items not found.</p>;
   return (

@@ -21,7 +21,7 @@ const Orders = () => {
   return (
     <div>
       <h3 className="text-xl md:text-2xl lg:text-3xl text-center mb-3 md:mb-5">
-        Your Offered Properties {offers.length}
+        My Offered Properties {offers.length}
       </h3>
       <div className="overflow-x-auto">
         <table className="table">
@@ -37,7 +37,7 @@ const Orders = () => {
             </tr>
           </thead>
           <tbody>
-            {/* row 1 */}
+            {/* row  */}
             {offers.map((item, index) => (
               <tr key={item._id}>
                 <th>{index + 1}</th>
@@ -68,6 +68,8 @@ const Orders = () => {
                         ? "badge-success"
                         : item?.status === "accepted"
                         ? "badge-info"
+                        : item?.status === "paid"
+                        ? "badge-success"
                         : "badge-error"
                     }`}
                   >
@@ -75,12 +77,16 @@ const Orders = () => {
                   </span>
                 </td>
                 <td>
-                  {item?.status === "accepted" ? (
-                    <Link to={`/userdashboard/payment`}>
-                      <span className="badge badge-success">Pay</span>
-                    </Link>
-                  ) : (
+                  {item?.status === "pending" && (
                     <span className="badge text-gray-400">Waiting</span>
+                  )}
+                  {item?.status === "accepted" && (
+                    <Link to={`/userdashboard/payment/${item._id}`}>
+                      <span className="badge badge-info">Pay</span>
+                    </Link>
+                  )}
+                  {item?.status === "paid" && (
+                    <span className="badge badge-success">Succeed</span>
                   )}
                 </td>
               </tr>
