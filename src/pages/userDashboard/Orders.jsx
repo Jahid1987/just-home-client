@@ -86,7 +86,7 @@ const Orders = () => {
                     </Link>
                   )}
                   {item?.status === "paid" && (
-                    <span className="badge badge-success">Succeed</span>
+                    <span className="badge badge-success">Bought</span>
                   )}
                 </td>
               </tr>

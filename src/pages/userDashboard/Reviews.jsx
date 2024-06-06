@@ -16,8 +16,7 @@ const Reviews = () => {
     error,
   } = useQuery({
     queryKey: ["reviews"],
-    queryFn: async () =>
-      await getDocs(`/reviews?reviewer_email=${savedUser.email}`),
+    queryFn: async () => await getDocs(`/reviews/${savedUser.email}`),
   });
 
   const { mutateAsync } = useMutation({
@@ -57,7 +56,7 @@ const Reviews = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {reviews.map((item, index) => (
+            {reviews?.map((item, index) => (
               <tr key={item._id}>
                 <th>{index + 1}</th>
                 <td>{item?.property_title}</td>

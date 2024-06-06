@@ -4,9 +4,11 @@ import { FaTrash } from "react-icons/fa";
 import confirmDelete from "../../utils/confirmDelete";
 import deleteMessage from "../../utils/deleteMessage";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Wishlist = () => {
   const axiosSecure = useAxiosSecure();
+  const { savedUser } = useAuth();
   // fetching data
   const {
     data: wishlists = [],
@@ -16,7 +18,9 @@ const Wishlist = () => {
   } = useQuery({
     queryKey: ["wishlists"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/wishlists");
+      const { data } = await axiosSecure.get(
+        `wishlists?user_id=${savedUser._id}`
+      );
       return data;
     },
   });
@@ -33,6 +37,9 @@ const Wishlist = () => {
   if (error) return <p>Items not found.</p>;
   return (
     <div>
+      <h3 className="text-xl md:text-2xl lg:text-3xl text-center mb-3 md:mb-5">
+        My total Wishlist {wishlists.length}
+      </h3>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}

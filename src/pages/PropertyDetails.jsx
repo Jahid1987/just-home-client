@@ -13,7 +13,7 @@ import CreateReview from "../components/propertyDetails/CreateReview";
 
 const PropertyDetails = () => {
   const { data: property } = useLoaderData();
-  const { user } = useAuth();
+  const { savedUser } = useAuth();
   const [propertyReview, setpropertyReview] = useState({});
   const axiosSecure = useAxiosSecure();
   const {
@@ -37,7 +37,7 @@ const PropertyDetails = () => {
   async function handleWishList() {
     try {
       const wishlist = {
-        user_id: user.uid,
+        user_id: savedUser._id,
         property_id: _id,
         title,
         image,
