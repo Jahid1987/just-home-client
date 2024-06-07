@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useSecureCRUD from "../../hooks/useSecureCRUD";
 import { toast } from "react-toastify";
+import confirmDelete from "../../utils/confirmDelete";
+import deleteMessage from "../../utils/deleteMessage";
 
 const ManageUsers = () => {
   const { getDocs, updateDoc, deleteDoc } = useSecureCRUD();
@@ -30,9 +32,11 @@ const ManageUsers = () => {
   // deleting the user
   async function handleDelete(item) {
     try {
+      const res = await confirmDelete();
+      if (!res.isConfirmed) return;
       await deleteDoc(`/users/${item._id}`);
       await refetch();
-      toast.success("User Deleted");
+      deleteMessage();
     } catch (err) {
       toast.error("Something wrong!");
       console.log(err);
