@@ -76,9 +76,17 @@ const Nav = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-          <span onClick={handleLogOut}>
-            <PrimaryButton name="Log Out" />
-          </span>
+          <div className="flex items-center gap-3">
+            <p>{savedUser?.name}</p>
+            <div className="avatar">
+              <div className="w-14 rounded-full">
+                <img src={savedUser?.image} />
+              </div>
+            </div>
+            <span onClick={handleLogOut}>
+              <PrimaryButton name="Log Out" />
+            </span>
+          </div>
         ) : (
           <Link to="/login">
             <PrimaryButton name="Login" />

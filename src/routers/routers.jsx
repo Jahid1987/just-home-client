@@ -26,12 +26,13 @@ import RequestedProperties from "../pages/agentDashboard/RequestedProperties";
 import MakeOffer from "../pages/userDashboard/MakeOffer";
 import UpdateProperty from "../pages/agentDashboard/UpdateProperty";
 import Payment from "../pages/userDashboard/Payment";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <h3>Page not found</h3>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
