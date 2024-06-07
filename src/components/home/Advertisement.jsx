@@ -9,7 +9,9 @@ const Advertisement = () => {
   const { data: properties = [], isLoading } = useQuery({
     queryKey: ["properties"],
     queryFn: async () => {
-      const { data } = await axiosPublic.get("/properties?limit=6");
+      const { data } = await axiosPublic.get(
+        "/properties?limit=6&verification_status=verified"
+      );
 
       return data;
     },
