@@ -36,8 +36,8 @@ const Register = () => {
         return toast.error("Cannot upload Image");
       }
       const { user } = await registerWithEmailPass(data.email, data.password);
-      await updateUserProfile(data.name, photoURL);
       await createUser(user, photoURL);
+      await updateUserProfile(data.name, photoURL);
       setisCreating(false);
       navigate("/");
       toast.success("Registration successfull!");

@@ -1,12 +1,13 @@
 import PropertyCard from "../PropertyCard";
 import { FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { axiosPublic } from "../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const SearchFilter = () => {
   const [searchText, setSearchText] = useState("");
   const [sortText, setSortText] = useState("");
   const [properties, setProperties] = useState([]);
+  const axiosSecure = useAxiosSecure();
 
   function handleSearch(e) {
     setSearchText(e.target.value);
@@ -14,15 +15,14 @@ const SearchFilter = () => {
 
   // using useeffect because tanstack query is not working in search functionality. Note: suggested by instructor Ferdous Zihad bhai
   useEffect(() => {
-    axiosPublic
+    axiosSecure
       .get(
         `/properties?verification_status=verified&location=${searchText}&sort=${sortText}`
       )
       .then((data) => {
         setProperties(data.data);
       });
-    console.log(sortText, searchText);
-  }, [sortText, searchText]);
+  }, [sortText, searchText, axiosSecure]);
   return (
     <div>
       <div className="w-11/12 md:w-8/12 lg:w-6/12 mx-auto my-3 md:my-5 lg:my-8 flex gap-2">
