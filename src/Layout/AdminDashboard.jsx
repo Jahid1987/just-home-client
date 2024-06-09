@@ -34,7 +34,13 @@ const AdminDashboard = () => {
         to="reviews"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
-        Manage Reviews.
+        Manage Reviews
+      </NavLink>
+      <NavLink
+        to="advertise"
+        className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
+      >
+        Advertise Properties
       </NavLink>
     </>
   );

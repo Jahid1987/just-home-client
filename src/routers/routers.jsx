@@ -29,6 +29,7 @@ import Payment from "../pages/userDashboard/Payment";
 import ErrorPage from "../pages/ErrorPage";
 import AdminRoute from "./AdminRouter";
 import AgentRoute from "./AgentRouter";
+import AdvertiseProperties from "../pages/adminDashboard/AdvertiseProperty";
 
 const router = createBrowserRouter([
   {
@@ -155,6 +156,10 @@ const router = createBrowserRouter([
       {
         path: "reviews",
         element: <ManageReviews />,
+      },
+      {
+        path: "advertise",
+        element: <AdvertiseProperties />,
       },
     ],
   },

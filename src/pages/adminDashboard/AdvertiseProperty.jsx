@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useSecureCRUD from "../../hooks/useSecureCRUD";
 import { toast } from "react-toastify";
 
-const ManageProperties = () => {
+const AdvertiseProperties = () => {
   const { getDocs, createDoc } = useSecureCRUD();
 
   const {
@@ -12,17 +12,18 @@ const ManageProperties = () => {
     refetch,
   } = useQuery({
     queryKey: ["properties"],
-    queryFn: async () => await getDocs(`/properties`),
+    queryFn: async () =>
+      await getDocs(`/properties?verification_status=verified`),
   });
   // handle status
-  async function handleStatus(item, status) {
+  async function handleAdvertise(item, status) {
     try {
       const updatedDoc = {
         id: item._id,
         status,
       };
       console.log(updatedDoc);
-      await createDoc("/properties/updatestatus", updatedDoc);
+      await createDoc("/properties/advertise", updatedDoc);
       await refetch();
       toast.success("Status updated");
     } catch (err) {
@@ -45,9 +46,8 @@ const ManageProperties = () => {
             <tr>
               <th>Sl No.</th>
               <th>Property Details</th>
-              <th>Agent Email</th>
+              <th>Price Range</th>
               <th>Agent Name</th>
-              <th>Offered Amount</th>
               <th>Actions/Status</th>
             </tr>
           </thead>
@@ -72,38 +72,26 @@ const ManageProperties = () => {
                     </div>
                   </div>
                 </td>
-                <td>{item?.agent_name}</td>
-                <td>{item?.agent_email}</td>
+
                 <td>
                   {item?.min_price} - {item?.max_price}
                 </td>
+                <td>{item?.agent_name}</td>
                 <td className="space-y-3 text-center">
-                  {item?.verification_status === "verified" ||
-                  item?.verification_status === "rejected" ? (
+                  {item?.advertiesment_status ? (
                     <span
-                      className={`${
-                        item?.verification_status === "verified"
-                          ? "badge-success"
-                          : "badge-error"
-                      } badge`}
+                      onClick={() => handleAdvertise(item, false)}
+                      className="badge cursor-pointer badge-success"
                     >
-                      {item?.verification_status}
+                      Remove
                     </span>
                   ) : (
-                    <>
-                      <span
-                        onClick={() => handleStatus(item, "verified")}
-                        className="badge cursor-pointer badge-success"
-                      >
-                        Accept
-                      </span>
-                      <span
-                        onClick={() => handleStatus(item, "rejected")}
-                        className="badge cursor-pointer badge-error"
-                      >
-                        Reject
-                      </span>
-                    </>
+                    <span
+                      onClick={() => handleAdvertise(item, true)}
+                      className="badge cursor-pointer badge-success"
+                    >
+                      Add
+                    </span>
                   )}
                 </td>
               </tr>
@@ -115,4 +103,4 @@ const ManageProperties = () => {
   );
 };
 
-export default ManageProperties;
+export default AdvertiseProperties;
