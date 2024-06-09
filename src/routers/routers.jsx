@@ -27,6 +27,8 @@ import MakeOffer from "../pages/userDashboard/MakeOffer";
 import UpdateProperty from "../pages/agentDashboard/UpdateProperty";
 import Payment from "../pages/userDashboard/Payment";
 import ErrorPage from "../pages/ErrorPage";
+import AdminRoute from "./AdminRouter";
+import AgentRoute from "./AgentRouter";
 
 const router = createBrowserRouter([
   {
@@ -99,9 +101,9 @@ const router = createBrowserRouter([
   {
     path: "agentdashboard",
     element: (
-      <PrivateRoute>
+      <AgentRoute>
         <AgentDashboard />
-      </PrivateRoute>
+      </AgentRoute>
     ),
     children: [
       {
@@ -133,9 +135,9 @@ const router = createBrowserRouter([
   {
     path: "admindashboard",
     element: (
-      <PrivateRoute>
+      <AdminRoute>
         <AdminDashboard />
-      </PrivateRoute>
+      </AdminRoute>
     ),
     children: [
       {
