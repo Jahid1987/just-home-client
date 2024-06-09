@@ -76,16 +76,30 @@ const Nav = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-          <div className="flex items-center gap-3">
-            <p>{savedUser?.name}</p>
-            <div className="avatar">
-              <div className="w-14 rounded-full">
-                <img src={savedUser?.image} />
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src={savedUser?.image}
+                />
               </div>
             </div>
-            <span onClick={handleLogOut}>
-              <PrimaryButton name="Log Out" />
-            </span>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 text-black rounded-box w-52 space-y-3"
+            >
+              <li>
+                <a>{savedUser?.name}</a>
+              </li>
+              <li>
+                <a onClick={handleLogOut}>Logout</a>
+              </li>
+            </ul>
           </div>
         ) : (
           <Link to="/login">

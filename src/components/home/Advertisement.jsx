@@ -10,7 +10,7 @@ const Advertisement = () => {
     queryKey: ["properties"],
     queryFn: async () => {
       const { data } = await axiosPublic.get(
-        "/properties?limit=6&verification_status=verified"
+        "/properties?limit=6&advertiesment_status=added"
       );
 
       return data;

@@ -22,7 +22,6 @@ const AdvertiseProperties = () => {
         id: item._id,
         status,
       };
-      console.log(updatedDoc);
       await createDoc("/properties/advertise", updatedDoc);
       await refetch();
       toast.success("Status updated");
@@ -48,7 +47,7 @@ const AdvertiseProperties = () => {
               <th>Property Details</th>
               <th>Price Range</th>
               <th>Agent Name</th>
-              <th>Actions/Status</th>
+              <th>Advertisement</th>
             </tr>
           </thead>
           <tbody>
@@ -78,16 +77,16 @@ const AdvertiseProperties = () => {
                 </td>
                 <td>{item?.agent_name}</td>
                 <td className="space-y-3 text-center">
-                  {item?.advertiesment_status ? (
+                  {item?.advertiesment_status === "added" ? (
                     <span
-                      onClick={() => handleAdvertise(item, false)}
+                      onClick={() => handleAdvertise(item, "removed")}
                       className="badge cursor-pointer badge-success"
                     >
                       Remove
                     </span>
                   ) : (
                     <span
-                      onClick={() => handleAdvertise(item, true)}
+                      onClick={() => handleAdvertise(item, "added")}
                       className="badge cursor-pointer badge-success"
                     >
                       Add

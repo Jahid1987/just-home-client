@@ -30,6 +30,9 @@ import ErrorPage from "../pages/ErrorPage";
 import AdminRoute from "./AdminRouter";
 import AgentRoute from "./AgentRouter";
 import AdvertiseProperties from "../pages/adminDashboard/AdvertiseProperty";
+import UserStats from "../pages/userDashboard/UserStats";
+import AgentStats from "../pages/agentDashboard/AgentStats";
+import AdminStats from "../pages/adminDashboard/AdminStats";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +80,10 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        index: true,
+        element: <UserStats />,
+      },
+      {
         path: "profile",
         element: <UserProfile />,
       },
@@ -107,6 +114,10 @@ const router = createBrowserRouter([
       </AgentRoute>
     ),
     children: [
+      {
+        index: true,
+        element: <AgentStats />,
+      },
       {
         path: "profile",
         element: <AgentProfile />,
@@ -141,6 +152,10 @@ const router = createBrowserRouter([
       </AdminRoute>
     ),
     children: [
+      {
+        index: true,
+        element: <AdminStats />,
+      },
       {
         path: "profile",
         element: <AdminProfile />,
