@@ -15,14 +15,25 @@ const SoldProperties = () => {
     queryFn: async () =>
       await getDocs(`/offers?agent_email=${savedUser.email}&status=paid`),
   });
-
+  console.log(offers);
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Items not found.</p>;
   return (
     <div>
-      <h3 className="text-xl md:text-2xl lg:text-3xl text-center mb-3 md:mb-5">
-        Your Sold Properties {offers.length}
-      </h3>
+      <div className="text-center mb-3 md:mb-5 space-y-3">
+        <h3 className="text-xl md:text-2xl lg:text-3xl ">
+          Your Sold Properties {offers.length}
+        </h3>
+        <div className="stats shadow">
+          <div className="stat">
+            <div className="stat-title">Total Amount of Sold Properties</div>
+            <div className="stat-value">
+              ${offers.reduce((sum, item) => sum + item.offered_amount, 0)}
+            </div>
+            <div className="stat-desc">21% more than last month</div>
+          </div>
+        </div>
+      </div>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
