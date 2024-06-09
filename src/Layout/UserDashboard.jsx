@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaBars, FaBuilding, FaUser } from "react-icons/fa";
+import { MdOutlineRateReview } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 const UserDashboard = () => {
@@ -22,24 +23,27 @@ const UserDashboard = () => {
         to="wishlist"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <FaBars />
         Wishlists
       </NavLink>
       <NavLink
         to="orders"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <FaBuilding />
         Property Bought
       </NavLink>
       <NavLink
         to="reviews"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <MdOutlineRateReview />
         Reviews
       </NavLink>
     </>
   );
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 max-w-[1440px] mx-auto">
       {/* Sidebar */}
       <div
         className={`${

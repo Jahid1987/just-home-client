@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaAd, FaBuilding, FaUser, FaUsers } from "react-icons/fa";
+import { MdOutlineRateReview } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 const AdminDashboard = () => {
@@ -22,30 +23,34 @@ const AdminDashboard = () => {
         to="properties"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <FaBuilding />
         Manage Properties
       </NavLink>
       <NavLink
         to="users"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <FaUsers />
         Manage Users
       </NavLink>
       <NavLink
         to="reviews"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <MdOutlineRateReview />
         Manage Reviews
       </NavLink>
       <NavLink
         to="advertise"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <FaAd />
         Advertise Properties
       </NavLink>
     </>
   );
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 max-w-[1440px] mx-auto">
       {/* Sidebar */}
       <div
         className={`${

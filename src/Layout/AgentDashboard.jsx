@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { FaUser } from "react-icons/fa";
+import { FaBuilding, FaUser } from "react-icons/fa";
+import {
+  FaBuildingCircleArrowRight,
+  FaBuildingCircleCheck,
+  FaBuildingUser,
+} from "react-icons/fa6";
 import { Link, NavLink, Outlet } from "react-router-dom";
 
 const AgentDashboard = () => {
@@ -22,30 +27,34 @@ const AgentDashboard = () => {
         to="addproperty"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <FaBuilding />
         Add Property
       </NavLink>
       <NavLink
         to="addedproperties"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <FaBuildingCircleArrowRight />
         My Added Properties
       </NavLink>
       <NavLink
         to="soldproperties"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <FaBuildingCircleCheck />
         My sold properties
       </NavLink>
       <NavLink
         to="requestedproperties"
         className="flex items-center gap-2 px-2 py-2 text-gray-100 hover:bg-gray-700"
       >
+        <FaBuildingUser />
         Requested properties
       </NavLink>
     </>
   );
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 max-w-[1440px] mx-auto">
       {/* Sidebar */}
       <div
         className={`${

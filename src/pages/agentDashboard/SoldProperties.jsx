@@ -22,7 +22,7 @@ const SoldProperties = () => {
     <div>
       <div className="text-center mb-3 md:mb-5 space-y-3">
         <h3 className="text-xl md:text-2xl lg:text-3xl ">
-          Your Sold Properties {offers.length}
+          My Sold Properties {offers.length}
         </h3>
         <div className="stats shadow">
           <div className="stat">
