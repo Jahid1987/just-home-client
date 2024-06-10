@@ -13,7 +13,6 @@ const useAxiosSecure = () => {
       return config;
     },
     function (error) {
-      // Doing something with request error
       return Promise.reject(error);
     }
   );

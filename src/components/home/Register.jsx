@@ -1,5 +1,6 @@
 import { FaArrowRight } from "react-icons/fa";
 import Section from "../Section";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
@@ -11,9 +12,11 @@ const Register = () => {
           </h3>
           <p>We only work with the best companies around the globe</p>
         </div>
-        <button className="btn btn-sm md:btn-md btn-warning">
-          Rgister Now <FaArrowRight />
-        </button>
+        <Link to="/register">
+          <button className="btn btn-sm md:btn-md btn-warning">
+            Rgister Now <FaArrowRight />
+          </button>
+        </Link>
       </div>
     </Section>
   );

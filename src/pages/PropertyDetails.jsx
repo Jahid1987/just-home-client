@@ -117,12 +117,15 @@ const PropertyDetails = () => {
       </Section>
       {/* property reviews */}
       <Section sectionhead="What our client say...">
-        {!reviews.length > 0 && <p>No reviews yet.</p>}
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          {reviews?.map((review, index) => (
-            <Review review={review} key={index}></Review>
-          ))}
-        </div>
+        {!Object.keys(reviews[0]).length > 0 ? (
+          <p>No reviews yet.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3">
+            {reviews?.map((review, index) => (
+              <Review review={review} key={index}></Review>
+            ))}
+          </div>
+        )}
       </Section>
       {/* Review add modal  */}
       <dialog id="review-modal" className="modal">

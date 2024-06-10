@@ -60,7 +60,7 @@ const SearchFilter = () => {
             ></PropertyCard>
           ))
         ) : (
-          <p>No match found</p>
+          <p>Loading ...</p>
         )}
       </div>
     </div>

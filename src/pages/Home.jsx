@@ -1,7 +1,5 @@
 import Advertisement from "../components/home/Advertisement";
-import BestProperties from "../components/home/BestProperties";
 import HomeBanner from "../components/home/HomeBanner";
-import LocalExpertise from "../components/home/LocalExpertise";
 import PropertiesInCities from "../components/home/PropertiesInCities";
 import Register from "../components/home/Register";
 import Reviews from "../components/home/Reviews";
@@ -32,9 +30,9 @@ const Home = () => {
       >
         <WhyChoose />
       </div>
-      <BestProperties />
+      {/* <BestProperties /> */}
       {/* local expertise section  */}
-      <div
+      {/* <div
         style={{
           borderRadius: "24px",
           background: "#1F4B43",
@@ -42,7 +40,7 @@ const Home = () => {
         className="py-5 my-2"
       >
         <LocalExpertise />
-      </div>
+      </div> */}
       {/* review section  */}
       <div>
         <Reviews />
