@@ -23,14 +23,14 @@
 - npm i
 - setup you .env file to update
 
-1. firebase config
+1. firebase config:
    VITE_apiKey=
    VITE_authDomain=
    VITE_projectId=
    VITE_storageBucket=
    VITE_messagingSenderId=
    VITE_appId=
-2. imagebb config
+2. imagebb config:
    VITE_image_api_key=
-3. stripe payment config
+3. stripe payment config:
    VITE_PAYMENT_KEY=
