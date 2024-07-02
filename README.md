@@ -22,6 +22,7 @@ Live Site Link: [https://just-home-625cb.web.app/]
 - clone first
 - npm i
 - setup you .env file to update
+- npm dev
 
 1. firebase config:
    VITE_apiKey=
