@@ -4,7 +4,7 @@
 
 3. Live Site Link: [https://just-home-625cb.web.app/]
 
-## Main Features of this site
+## 🚀 Main Features of this site
 
 - Features for Common user: A Normal User can find his/her preferable home by location, can see properties by sorting minimum and maximum price range, can add a particular property in his/her wishlist, can make offer for the property to the agent of this property.
 
@@ -17,7 +17,7 @@
 - ![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=white)
 - ![Firebase](https://img.shields.io/badge/-Firebase-FFCA28?style=flat&logo=firebase&logoColor=white)
 
-## To Run locally
+## ⚙️ To Run locally
 
 - clone first
 - npm i
