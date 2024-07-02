@@ -22,7 +22,6 @@ Live Site Link: [https://just-home-625cb.web.app/]
 - clone first
 - npm i
 - setup you .env file to update
-- npm dev
 
 1. firebase config:
    VITE_apiKey=
@@ -35,3 +34,5 @@ Live Site Link: [https://just-home-625cb.web.app/]
    VITE_image_api_key=
 3. stripe payment config:
    VITE_PAYMENT_KEY=
+
+- npm dev
